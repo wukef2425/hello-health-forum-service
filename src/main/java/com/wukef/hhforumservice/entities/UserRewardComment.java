@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user_reward_comments")
+@Table(name = "user_reward_comment")
 @Getter
 @Setter
 @NoArgsConstructor

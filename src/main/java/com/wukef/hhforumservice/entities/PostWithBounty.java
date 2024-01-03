@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "post_with_bounties")
+@Table(name = "post_with_bounty")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,8 +19,8 @@ public class PostWithBounty {
     @Column(name = "bounty_value", nullable = false)
     private Integer bountyValue;
 
-    @Column(name = "best_answer_comment_id")
-    private Integer bestAnswerCommentId;
+//    @Column(name = "best_answer_comment_id")
+//    private Integer bestAnswerCommentId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId

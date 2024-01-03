@@ -10,7 +10,7 @@ import java.util.List;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user_info")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,7 +35,7 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "portrait", nullable = false)
+    @Column(name = "portait", nullable = false)
     private String portrait;
 
     @Column(name = "birthday")
@@ -62,31 +62,16 @@ public class User {
     @Column(name = "is_locked")
     private LocalDateTime isLocked;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<AppliedDoctor> appliedDoctors;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CommentReport> commentReports;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Hbrecord> hbrecords;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Notification> notifications;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<StarMedicine> starMedicines;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<ToDoList> toDoLists;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "giverUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRewardComment> userRewardComments;
 
     @ManyToMany

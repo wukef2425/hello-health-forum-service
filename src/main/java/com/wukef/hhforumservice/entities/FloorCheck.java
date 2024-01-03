@@ -1,14 +1,14 @@
 package com.wukef.hhforumservice.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "floor_checks")
-@Data
+@Table(name = "floor_check")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FloorCheck {
@@ -28,10 +28,6 @@ public class FloorCheck {
 
     @Column(name = "review_reason")
     private String reviewReason;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "administrator_id", insertable = false, updatable = false)
-//    private Administrator administrator;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId

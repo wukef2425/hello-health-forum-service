@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,25 +16,23 @@ public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "POST_ID")
     private Integer postId;
 
-    @Column(name = "author_id", nullable = false)
-    private Integer authorId;
-
-    @Column(name = "title", nullable = false)
+    @Column(name = "TITLE", nullable = false, length = 100)
     private String title;
 
-    @Column(name = "is_bounty")
+    @Column(name = "IS_BOUNTY", nullable = false)
     private Boolean isBounty;
 
-    @Column(name = "censor_status")
+    @Column(name = "CENSOR_STATUS", nullable = false)
     private Integer censorStatus;
 
-    @Column(name = "total_floor", nullable = false)
+    @Column(name = "TOTAL_FLOOR", nullable = false)
     private Integer totalFloor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id", referencedColumnName = "userId", insertable = false, updatable = false)
+    @JoinColumn(name = "AUTHOR_ID", referencedColumnName = "userId", insertable = false, updatable = false)
     private User author;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -45,9 +43,9 @@ public class Post {
 
     @ManyToMany
     @JoinTable(
-            name = "post_post_tags",
+            name = "post_tag_trait",
             joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "post_tag_id")
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<PostTag> postTags = new HashSet<>();
 

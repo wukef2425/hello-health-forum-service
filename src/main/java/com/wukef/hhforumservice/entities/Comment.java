@@ -1,15 +1,15 @@
 package com.wukef.hhforumservice.entities;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "comments")
-@Data
+@Table(name = "comment")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment {
@@ -53,8 +53,8 @@ public class Comment {
     @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
 
-    @OneToMany(mappedBy = "comment")
-    private List<PostWithBounty> postWithBounties;
+    @OneToOne(mappedBy = "bestAnswerComment")
+    private PostWithBounty postWithBounties;
 
     @OneToMany(mappedBy = "comment")
     private List<UserRewardComment> userRewardComments;

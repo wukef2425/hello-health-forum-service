@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "post_tags")
+@Table(name = "post_tag")
 @Getter
 @Setter
 @NoArgsConstructor

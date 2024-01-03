@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "comment_reports")
+@Table(name = "comment_report")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
