@@ -2,6 +2,9 @@ spring:
   application:
     name: ForumService
   cloud:
+    loadbalancer:
+      cache:
+        enabled: false
     nacos:
       discovery:
         server-addr: 8.130.100.218:8848
@@ -12,8 +15,5 @@ spring:
         name: ForumService
         group: DEFAULT_GROUP
         namespace: 98a85b64-1f68-469c-8052-2e3af62296b8
-    loadbalancer:
-      cache:
-        enabled: false
 server:
   port: 8089

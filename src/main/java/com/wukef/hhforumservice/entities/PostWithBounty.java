@@ -19,9 +19,6 @@ public class PostWithBounty {
     @Column(name = "bounty_value", nullable = false)
     private Integer bountyValue;
 
-//    @Column(name = "best_answer_comment_id")
-//    private Integer bestAnswerCommentId;
-
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "post_id")
