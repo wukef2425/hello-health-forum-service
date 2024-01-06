@@ -76,8 +76,8 @@ public class User {
 
     @ManyToMany
     @JoinTable(
-            name = "user_follows",
-            joinColumns = @JoinColumn(name = "follower_id"),
+            name = "follow_user",
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "followed_id")
     )
     private List<User> followeds; // The users that this user is following

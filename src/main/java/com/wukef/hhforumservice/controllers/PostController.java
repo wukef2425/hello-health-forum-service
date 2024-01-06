@@ -2,12 +2,13 @@ package com.wukef.hhforumservice.controllers;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.wukef.hhforumservice.dto.PostData;
+import com.wukef.hhforumservice.dto.*;
 import com.wukef.hhforumservice.entities.*;
 import com.wukef.hhforumservice.repositories.CommentRepository;
 import com.wukef.hhforumservice.repositories.FloorCheckRepository;
 import com.wukef.hhforumservice.repositories.PostRepository;
 import com.wukef.hhforumservice.repositories.UserRepository;
+import com.wukef.hhforumservice.services.CommentService;
 import com.wukef.hhforumservice.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/forum/posts")
@@ -75,14 +77,12 @@ public class PostController {
 
     @GetMapping("/{postId}")
     public ResponseEntity<?> getPostDetails(@PathVariable int postId) {
-        Map<String, Object> response = new HashMap<>();
-        HttpStatus status = HttpStatus.OK;
+        Message message = new Message();
 
         try {
             Integer userId = 205;
             User user = userId != null ? userRepository.findById(userId).orElse(null) : null;
             if (user == null) {
-                response.put("message", "User ID is null, but access to post details is required.");
                 user = new User();
                 user.setUserId(-1); // Indicate that the user is not logged in
             }
@@ -92,21 +92,21 @@ public class PostController {
             );
 
             PostData postData = new PostData();
-            postData.autoSet(post, user); // Populate postData with post and user details
+            postData.autoSet(post, user);
 
-            response.put("post", postData);
-            response.put("status", true);
+            List<FloorData> floorDataList = commentService.processComments(postId);
+
+            message.getData().put("floors", floorDataList);
+            message.getData().put("status", true);
+            message.getData().put("title", post.getTitle());
         } catch (NoSuchElementException e) {
-            status = HttpStatus.NOT_FOUND;
-            response.put("status", false);
-            response.put("message", e.getMessage());
+            message.setErrorCode(400);
         } catch (Exception e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            response.put("status", false);
-            response.put("message", "An error occurred while fetching the post details.");
+            message.setErrorCode(500);
+            message.setMessage(e.getMessage());
         }
 
-        return new ResponseEntity<>(response, status);
+        return ResponseEntity.status(message.getErrorCode()).body(message);
     }
 
     @PostMapping
@@ -163,6 +163,9 @@ public class PostController {
         }
         return ResponseEntity.ok(message.toJSONString());
     }
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private PostService postService;

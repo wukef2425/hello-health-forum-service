@@ -8,6 +8,8 @@ import com.wukef.hhforumservice.entities.User;
 import com.wukef.hhforumservice.entities.Comment;
 import com.wukef.hhforumservice.entities.PostTag;
 import lombok.Data;
+import lombok.Setter;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
