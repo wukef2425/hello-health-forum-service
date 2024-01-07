@@ -7,9 +7,7 @@ import lombok.Data;
 public class ReplyData {
     private String content;
     private Integer commentId;
-    private AuthorData author;
     private String postTime;
-    private LikeData like;
     private Integer commentUserId;
     private String commentUserName;
 
@@ -17,6 +15,8 @@ public class ReplyData {
         this.content = comment.getContent();
         this.commentId = comment.getCommentId();
         this.postTime = comment.getCommentTime().toString();
+        this.commentUserId = comment.getAuthorId();
+        this.commentUserName = comment.getAuthor().getUserName();
         return this;
     }
 }
